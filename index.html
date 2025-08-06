@@ -36,7 +36,7 @@
     <div class="header">天涯黄昏官方论坛</div>
     
     <div class="countdown" id="countdown">
-        距离2025年8月18日早上8点(北京时间)还有:
+        <strong>距離開服時間還有：</strong>
         <br>
         <span id="timer"></span>
     </div>
@@ -61,10 +61,11 @@
             document.getElementById("timer").innerHTML = 
                 days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
             
-            // 如果时间到了，显示"活动已开始！"
+            // 如果时间到了，显示"已開服！"
             if (distance < 0) {
                 clearInterval(countdownTimer);
-                document.getElementById("timer").innerHTML = "活动已开始！";
+                document.getElementById("countdown").innerHTML = 
+                    "<strong>開服時間已到！歡迎進入遊戲！</strong>";
             }
         }
         
