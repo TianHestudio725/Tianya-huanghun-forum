@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天涯黄昏官方论坛</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 50px;
+        }
+        .header {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #8B4513; /* 黄昏色系 */
+        }
+        .countdown {
+            font-size: 24px;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .notice {
+            font-size: 18px;
+            color: #ff6600;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">天涯黄昏官方论坛</div>
+    
+    <div class="countdown" id="countdown">
+        距离2025年8月18日早上8点(北京时间)还有:
+        <br>
+        <span id="timer"></span>
+    </div>
+    
+    <div class="notice">功能未完善，请多加宽待</div>
+
+    <script>
+        // 目标时间：2025年8月18日8:00（北京时间 UTC+8）
+        const targetDate = new Date('2025-08-18T08:00:00+08:00').getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            // 计算剩余时间
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // 显示倒计时
+            document.getElementById("timer").innerHTML = 
+                days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
+            
+            // 如果时间到了，显示"活动已开始！"
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("timer").innerHTML = "活动已开始！";
+            }
+        }
+        
+        // 立即运行一次，然后每秒更新
+        updateCountdown();
+        const countdownTimer = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
