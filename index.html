@@ -202,6 +202,24 @@
             opacity: 0;
         }
         
+        /* Discord按钮样式 */
+        .discord-btn {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: #5865F2;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+        
         @keyframes shooting {
             0% {
                 transform: translateX(0) translateY(0);
@@ -286,6 +304,13 @@
         <!-- 底部公告 -->
         <div class="notice">
             洞天福地尚在开辟中，请各位道友稍安勿躁...
+        </div>
+
+        <!-- 新增的Discord按钮 -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="discord.html" class="discord-btn">
+                <i class="fab fa-discord"></i> 天涯黄昏-Discord
+            </a>
         </div>
     </div>
 
