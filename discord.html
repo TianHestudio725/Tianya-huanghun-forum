@@ -197,10 +197,46 @@
     </div>
 
     <script>
-        // 这里可以添加Discord小部件API调用
-        // 注意：实际使用时需要申请Discord小部件权限
+        // Discord服务器状态获取
+        function updateDiscordStats() {
+            // 替换为您的Discord服务器ID
+            const serverId = 'YOUR_SERVER_ID'; 
+            
+            fetch(`https://discord.com/api/guilds/${serverId}/widget.json`)
+                .then(response => {
+                    if (!response.ok) throw new Error('获取失败');
+                    return response.json();
+                })
+                .then(data => {
+                    // 更新在线人数
+                    document.getElementById('discord-members').textContent = 
+                        data.presence_count || '0';
+                    
+                    // 计算语音频道中的用户数
+                    let voiceUsers = 0;
+                    data.channels.forEach(channel => {
+                        if (channel.type === 2) { // 2代表语音频道
+                            voiceUsers += channel.members?.length || 0;
+                        }
+                    });
+                    document.getElementById('discord-voice').textContent = 
+                        voiceUsers || '0';
+                })
+                .catch(error => {
+                    console.error('Discord状态获取失败:', error);
+                    document.getElementById('discord-members').textContent = '获取失败';
+                    document.getElementById('discord-voice').textContent = '获取失败';
+                });
+        }
+
+        // 页面加载时获取数据
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDiscordStats();
+            // 每5分钟刷新一次数据
+            setInterval(updateDiscordStats, 300000);
+        });
         
-        // 返回按钮动画
+        // 返回按钮动画 (保持原有功能)
         document.querySelector('.discord-back').addEventListener('mouseover', function() {
             this.style.transform = 'translateX(-5px)';
         });
