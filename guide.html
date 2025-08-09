@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天涯黄昏教学系统1.0 - 一念逍遥</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #000;
+            color: #e6d8b5;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #111;
+            border: 2px solid #3a2e1e;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        h1 {
+            color: #f8d053;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+            border-bottom: 2px solid #3a2e1e;
+            padding-bottom: 15px;
+        }
+        .cultivation-system {
+            margin-bottom: 40px;
+            border: 1px solid #3a2e1e;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .system-header {
+            background: linear-gradient(to right, #1a120b, #3a2e1e);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #3a2e1e;
+        }
+        .system-logo {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
+        .system-title {
+            color: #f8d053;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        .system-content {
+            padding: 20px;
+            background-color: #0a0806;
+        }
+        .system-section {
+            margin-bottom: 15px;
+        }
+        .section-title {
+            color: #f8d053;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            border-left: 3px solid #f8d053;
+            padding-left: 10px;
+        }
+        .back-btn {
+            display: block;
+            width: 150px;
+            margin: 40px auto 0;
+            padding: 10px;
+            background: #3a2e1e;
+            color: #f8d053;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            background: #5a4a30;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,215,0,0.2);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .system-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .system-logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>天涯黄昏教学系统1.0</h1>
+        
+        <!-- 法修 -->
+        <div class="cultivation-system">
+            <div class="system-header">
+                <img src="法修logo.png" alt="法修" class="system-logo">
+                <div class="system-title">法修</div>
+            </div>
+            <div class="system-content">
+                <div class="system-section">
+                    <div class="section-title">核心特色</div>
+                    <p>《一念逍遥》中的法修，以法术为主要攻击手段，擅长使用各种法术攻击敌人，同时具备辅助能力如提升防御或控制敌人。玩法核心在于神通搭配运用。</p>
+                </div>
+                <div class="system-section">
+                    <div class="section-title">职业特点</div>
+                    <p><strong>高爆发输出：</strong>拥有极高的法术伤害，可短时间内造成大量伤害，适合秒杀脆皮目标或快速清怪。</p>
+                    <p><strong>远程攻击：</strong>技能多为远程攻击，可在安全距离外打击敌人。</p>
+                    <p><strong>神通搭配：</strong>不同神通组合可产生增伤、防御提升、控制等不同效果。</p>
+                    <p><strong>生存较弱：</strong>相比其他职业生存能力较弱，需依靠神通搭配和操作弥补。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 体修 -->
+        <div class="cultivation-system">
+            <div class="system-header">
+                <img src="体修logo.png" alt="体修" class="system-logo">
+                <div class="system-title">体修</div>
+            </div>
+            <div class="system-content">
+                <div class="system-section">
+                    <div class="section-title">核心特色</div>
+                    <p>以肉体力量为核心的修仙流派，擅长近战输出和承受伤害，是团队中的前排坦克角色。</p>
+                </div>
+                <div class="system-section">
+                    <div class="section-title">职业特点</div>
+                    <p><strong>高生存能力：</strong>拥有极高的气血和防御，能够承受大量伤害。</p>
+                    <p><strong>近战爆发：</strong>具备强大的近战技能，可快速接近敌人造成高额爆发伤害。</p>
+                    <p><strong>控制能力：</strong>部分技能附带眩晕、减速等控制效果。</p>
+                    <p><strong>物理攻击：</strong>主要依靠物理攻击和技能，与法修不同。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 剑修 -->
+        <div class="cultivation-system">
+            <div class="system-header">
+                <img src="剑修logo.png" alt="剑修" class="system-logo">
+                <div class="system-title">剑修</div>
+            </div>
+            <div class="system-content">
+                <div class="system-section">
+                    <div class="section-title">核心特色</div>
+                    <p>以御剑飞行和召唤飞剑战斗为特色，主要依靠气血和物理攻击，以飞剑为主要法宝。</p>
+                </div>
+                <div class="system-section">
+                    <div class="section-title">职业特点</div>
+                    <p><strong>御剑战斗：</strong>核心玩法是利用法宝或神通召唤飞剑攻击敌人。</p>
+                    <p><strong>流派分化：</strong>主要分为持续剑气的飞剑流和追求瞬间爆发的爆剑流。</p>
+                    <p><strong>机动性强：</strong>通明期可解锁御剑飞行秘术，获得移速加成。</p>
+                    <p><strong>操作需求：</strong>需要精准操作避免被打断，上手难度较高。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 鬼修 -->
+        <div class="cultivation-system">
+            <div class="system-header">
+                <img src="鬼修logo.png" alt="鬼修" class="system-logo">
+                <div class="system-title">鬼修</div>
+            </div>
+            <div class="system-content">
+                <div class="system-section">
+                    <div class="section-title">核心特色</div>
+                    <p>多面手职业，可根据神通和法宝搭配实现对各方向的克制，主要有狂暴流和控制流两种玩法。</p>
+                </div>
+                <div class="system-section">
+                    <div class="section-title">职业特点</div>
+                    <p><strong>狂暴流派：</strong>快速积蓄能量进入狂暴状态，爆发输出。</p>
+                    <p><strong>控制流派：</strong>利用离魂钉、定身符等控制技能，灵活闪避伺机反击。</p>
+                    <p><strong>初期搭配：</strong>建议辅修法修增加控制和生存能力。</p>
+                    <p><strong>战术多变：</strong>可根据不同对手调整法宝和神通组合。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 儒修 -->
+        <div class="cultivation-system">
+            <div class="system-header">
+                <img src="儒修logo.png" alt="儒修" class="system-logo">
+                <div class="system-title">儒修</div>
+            </div>
+            <div class="system-content">
+                <div class="system-section">
+                    <div class="section-title">核心特色</div>
+                    <p>法术系新方向，身怀浩然正气，以文载道，以笔墨为兵器，通过文气值强化技能效果。</p>
+                </div>
+                <div class="system-section">
+                    <div class="section-title">职业特点</div>
+                    <p><strong>文气机制：</strong>积攒文气值强化技能，满值可释放"言出法随"大招。</p>
+                    <p><strong>文化底蕴：</strong>引圣贤名句作战，将琴棋书画融入修行。</p>
+                    <p><strong>专属法宝：</strong>拥有文房四宝类专属法宝【笔】和【砚】。</p>
+                    <p><strong>流派分化：</strong>圣语流派快速回复能量，君子四艺流派施展强力额外效果。</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-btn">返回主论坛</a>
+    </div>
+</body>
+</html>
