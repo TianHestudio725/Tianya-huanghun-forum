@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天涯黄昏教学系统1.0 - 一念逍遥</title>
+    <title>天涯黄昏教学系统2.0 - 一念逍遥</title>
     <style>
         body {
             font-family: 'Microsoft YaHei', sans-serif;
@@ -12,36 +12,89 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            background-image: url('https://img.freepik.com/free-vector/dark-wall-background_1390-191.jpg');
+            background-size: cover;
+            background-attachment: fixed;
         }
         .container {
             max-width: 1000px;
-            margin: 0 auto;
-            background-color: #111;
+            margin: 20px auto;
+            background-color: rgba(17, 17, 17, 0.9);
             border: 2px solid #3a2e1e;
             padding: 30px;
             box-shadow: 0 0 20px rgba(255,215,0,0.3);
+            border-radius: 10px;
+        }
+        .title-box {
+            background: linear-gradient(to right, #1a120b, #3a2e1e);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid #f8d053;
+            box-shadow: 0 0 15px rgba(248, 208, 83, 0.3);
         }
         h1 {
             color: #f8d053;
-            text-align: center;
             font-size: 2.5em;
-            margin-bottom: 30px;
+            margin: 0;
             text-shadow: 0 0 10px rgba(255,215,0,0.5);
-            border-bottom: 2px solid #3a2e1e;
-            padding-bottom: 15px;
         }
-        .cultivation-system {
-            margin-bottom: 40px;
-            border: 1px solid #3a2e1e;
-            border-radius: 5px;
-            overflow: hidden;
+        .cultivation-types {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
-        .system-header {
-            background: linear-gradient(to right, #1a120b, #3a2e1e);
-            padding: 15px;
+        .type-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3a2e1e, #1a120b);
+            border: 3px solid #f8d053;
             display: flex;
             align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(248, 208, 83, 0.3);
+        }
+        .type-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(248, 208, 83, 0.5);
+        }
+        .type-btn.active {
+            background: linear-gradient(135deg, #f8d053, #d4af37);
+            border-color: #fff;
+        }
+        .type-btn img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+        }
+        .cultivation-content {
+            min-height: 400px;
+            background-color: rgba(10, 8, 6, 0.8);
+            border: 1px solid #3a2e1e;
+            border-radius: 8px;
+            padding: 20px;
+            display: none;
+        }
+        .cultivation-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .system-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
             border-bottom: 1px solid #3a2e1e;
+            padding-bottom: 15px;
         }
         .system-logo {
             width: 80px;
@@ -53,41 +106,57 @@
             font-size: 1.8em;
             font-weight: bold;
         }
-        .system-content {
-            padding: 20px;
-            background-color: #0a0806;
-        }
         .system-section {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .section-title {
             color: #f8d053;
-            font-size: 1.2em;
-            margin-bottom: 8px;
-            border-left: 3px solid #f8d053;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            border-left: 4px solid #f8d053;
             padding-left: 10px;
+            text-shadow: 0 0 5px rgba(248, 208, 83, 0.3);
         }
         .back-btn {
             display: block;
             width: 150px;
             margin: 40px auto 0;
-            padding: 10px;
+            padding: 12px;
             background: #3a2e1e;
             color: #f8d053;
             text-align: center;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 25px;
             font-size: 1.1em;
             transition: all 0.3s;
+            border: 1px solid #f8d053;
         }
         .back-btn:hover {
             background: #5a4a30;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(255,215,0,0.2);
         }
+        .default-message {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1.2em;
+            color: #f8d053;
+        }
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
+            }
+            .cultivation-types {
+                justify-content: center;
+            }
+            .type-btn {
+                width: 80px;
+                height: 80px;
+                margin: 8px;
+            }
+            .type-btn img {
+                width: 50px;
+                height: 50px;
             }
             .system-header {
                 flex-direction: column;
@@ -102,114 +171,184 @@
 </head>
 <body>
     <div class="container">
-        <h1>天涯黄昏教学系统1.0</h1>
+        <div class="title-box">
+            <h1>一念逍遥修炼方向</h1>
+        </div>
         
-        <!-- 法修 -->
-        <div class="cultivation-system">
+        <div class="cultivation-types">
+            <div class="type-btn" data-target="fa-xiu">
+                <img src="法修logo.png" alt="法修">
+            </div>
+            <div class="type-btn" data-target="ti-xiu">
+                <img src="体修logo.png" alt="体修">
+            </div>
+            <div class="type-btn" data-target="jian-xiu">
+                <img src="剑修logo.png" alt="剑修">
+            </div>
+            <div class="type-btn" data-target="gui-xiu">
+                <img src="鬼修logo.png" alt="鬼修">
+            </div>
+            <div class="type-btn" data-target="ru-xiu">
+                <img src="儒修logo.png" alt="儒修">
+            </div>
+        </div>
+        
+        <div id="default-content" class="default-message">
+            请点击上方修行图标查看对应修炼方向详细攻略
+        </div>
+        
+        <!-- 法修内容 -->
+        <div id="fa-xiu" class="cultivation-content">
             <div class="system-header">
                 <img src="法修logo.png" alt="法修" class="system-logo">
                 <div class="system-title">法修</div>
             </div>
-            <div class="system-content">
-                <div class="system-section">
-                    <div class="section-title">核心特色</div>
-                    <p>《一念逍遥》中的法修，以法术为主要攻击手段，擅长使用各种法术攻击敌人，同时具备辅助能力如提升防御或控制敌人。玩法核心在于神通搭配运用。</p>
-                </div>
-                <div class="system-section">
-                    <div class="section-title">职业特点</div>
-                    <p><strong>高爆发输出：</strong>拥有极高的法术伤害，可短时间内造成大量伤害，适合秒杀脆皮目标或快速清怪。</p>
-                    <p><strong>远程攻击：</strong>技能多为远程攻击，可在安全距离外打击敌人。</p>
-                    <p><strong>神通搭配：</strong>不同神通组合可产生增伤、防御提升、控制等不同效果。</p>
-                    <p><strong>生存较弱：</strong>相比其他职业生存能力较弱，需依靠神通搭配和操作弥补。</p>
-                </div>
+            <div class="system-section">
+                <div class="section-title">核心特色</div>
+                <p>《一念逍遥》中的法修，以法术为主要攻击手段，擅长使用各种法术攻击敌人，同时具备辅助能力如提升防御或控制敌人。玩法核心在于神通搭配运用。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">职业特点</div>
+                <p><strong>高爆发输出：</strong>拥有极高的法术伤害，可短时间内造成大量伤害，适合秒杀脆皮目标或快速清怪。</p>
+                <p><strong>远程攻击：</strong>技能多为远程攻击，可在安全距离外打击敌人。</p>
+                <p><strong>神通搭配：</strong>不同神通组合可产生增伤、防御提升、控制等不同效果。</p>
+                <p><strong>生存较弱：</strong>相比其他职业生存能力较弱，需依靠神通搭配和操作弥补。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">新手推荐</div>
+                <p><strong>神通搭配：</strong>初期推荐使用"火球术"+"冰锥术"组合，兼顾输出和控制</p>
+                <p><strong>法宝选择：</strong>优先选择增加法术攻击和暴击率的法宝</p>
+                <p><strong>修炼重点：</strong>优先提升灵力值和法术攻击属性</p>
             </div>
         </div>
         
-        <!-- 体修 -->
-        <div class="cultivation-system">
+        <!-- 体修内容 -->
+        <div id="ti-xiu" class="cultivation-content">
             <div class="system-header">
                 <img src="体修logo.png" alt="体修" class="system-logo">
                 <div class="system-title">体修</div>
             </div>
-            <div class="system-content">
-                <div class="system-section">
-                    <div class="section-title">核心特色</div>
-                    <p>以肉体力量为核心的修仙流派，擅长近战输出和承受伤害，是团队中的前排坦克角色。</p>
-                </div>
-                <div class="system-section">
-                    <div class="section-title">职业特点</div>
-                    <p><strong>高生存能力：</strong>拥有极高的气血和防御，能够承受大量伤害。</p>
-                    <p><strong>近战爆发：</strong>具备强大的近战技能，可快速接近敌人造成高额爆发伤害。</p>
-                    <p><strong>控制能力：</strong>部分技能附带眩晕、减速等控制效果。</p>
-                    <p><strong>物理攻击：</strong>主要依靠物理攻击和技能，与法修不同。</p>
-                </div>
+            <div class="system-section">
+                <div class="section-title">核心特色</div>
+                <p>以肉体力量为核心的修仙流派，擅长近战输出和承受伤害，是团队中的前排坦克角色。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">职业特点</div>
+                <p><strong>高生存能力：</strong>拥有极高的气血和防御，能够承受大量伤害。</p>
+                <p><strong>近战爆发：</strong>具备强大的近战技能，可快速接近敌人造成高额爆发伤害。</p>
+                <p><strong>控制能力：</strong>部分技能附带眩晕、减速等控制效果。</p>
+                <p><strong>物理攻击：</strong>主要依靠物理攻击和技能，与法修不同。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">新手推荐</div>
+                <p><strong>神通搭配：</strong>推荐"铁山靠"+"金刚拳"组合，兼顾控制和爆发</p>
+                <p><strong>法宝选择：</strong>优先选择增加气血和防御属性的法宝</p>
+                <p><strong>修炼重点：</strong>优先提升体魄和防御属性</p>
             </div>
         </div>
         
-        <!-- 剑修 -->
-        <div class="cultivation-system">
+        <!-- 剑修内容 -->
+        <div id="jian-xiu" class="cultivation-content">
             <div class="system-header">
                 <img src="剑修logo.png" alt="剑修" class="system-logo">
                 <div class="system-title">剑修</div>
             </div>
-            <div class="system-content">
-                <div class="system-section">
-                    <div class="section-title">核心特色</div>
-                    <p>以御剑飞行和召唤飞剑战斗为特色，主要依靠气血和物理攻击，以飞剑为主要法宝。</p>
-                </div>
-                <div class="system-section">
-                    <div class="section-title">职业特点</div>
-                    <p><strong>御剑战斗：</strong>核心玩法是利用法宝或神通召唤飞剑攻击敌人。</p>
-                    <p><strong>流派分化：</strong>主要分为持续剑气的飞剑流和追求瞬间爆发的爆剑流。</p>
-                    <p><strong>机动性强：</strong>通明期可解锁御剑飞行秘术，获得移速加成。</p>
-                    <p><strong>操作需求：</strong>需要精准操作避免被打断，上手难度较高。</p>
-                </div>
+            <div class="system-section">
+                <div class="section-title">核心特色</div>
+                <p>以御剑飞行和召唤飞剑战斗为特色，主要依靠气血和物理攻击，以飞剑为主要法宝。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">职业特点</div>
+                <p><strong>御剑战斗：</strong>核心玩法是利用法宝或神通召唤飞剑攻击敌人。</p>
+                <p><strong>流派分化：</strong>主要分为持续剑气的飞剑流和追求瞬间爆发的爆剑流。</p>
+                <p><strong>机动性强：</strong>通明期可解锁御剑飞行秘术，获得移速加成。</p>
+                <p><strong>操作需求：</strong>需要精准操作避免被打断，上手难度较高。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">新手推荐</div>
+                <p><strong>神通搭配：</strong>新手推荐"御剑术"+"剑气护体"组合，攻守兼备</p>
+                <p><strong>法宝选择：</strong>优先选择增加攻击速度和暴击伤害的飞剑类法宝</p>
+                <p><strong>修炼重点：</strong>优先提升攻击速度和暴击率</p>
             </div>
         </div>
         
-        <!-- 鬼修 -->
-        <div class="cultivation-system">
+        <!-- 鬼修内容 -->
+        <div id="gui-xiu" class="cultivation-content">
             <div class="system-header">
                 <img src="鬼修logo.png" alt="鬼修" class="system-logo">
                 <div class="system-title">鬼修</div>
             </div>
-            <div class="system-content">
-                <div class="system-section">
-                    <div class="section-title">核心特色</div>
-                    <p>多面手职业，可根据神通和法宝搭配实现对各方向的克制，主要有狂暴流和控制流两种玩法。</p>
-                </div>
-                <div class="system-section">
-                    <div class="section-title">职业特点</div>
-                    <p><strong>狂暴流派：</strong>快速积蓄能量进入狂暴状态，爆发输出。</p>
-                    <p><strong>控制流派：</strong>利用离魂钉、定身符等控制技能，灵活闪避伺机反击。</p>
-                    <p><strong>初期搭配：</strong>建议辅修法修增加控制和生存能力。</p>
-                    <p><strong>战术多变：</strong>可根据不同对手调整法宝和神通组合。</p>
-                </div>
+            <div class="system-section">
+                <div class="section-title">核心特色</div>
+                <p>多面手职业，可根据神通和法宝搭配实现对各方向的克制，主要有狂暴流和控制流两种玩法。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">职业特点</div>
+                <p><strong>狂暴流派：</strong>快速积蓄能量进入狂暴状态，爆发输出。</p>
+                <p><strong>控制流派：</strong>利用离魂钉、定身符等控制技能，灵活闪避伺机反击。</p>
+                <p><strong>初期搭配：</strong>建议辅修法修增加控制和生存能力。</p>
+                <p><strong>战术多变：</strong>可根据不同对手调整法宝和神通组合。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">新手推荐</div>
+                <p><strong>神通搭配：</strong>推荐"鬼影步"+"噬魂爪"组合，灵活机动</p>
+                <p><strong>法宝选择：</strong>优先选择增加暴击率和吸血效果的法宝</p>
+                <p><strong>修炼重点：</strong>优先提升暴击伤害和闪避率</p>
             </div>
         </div>
         
-        <!-- 儒修 -->
-        <div class="cultivation-system">
+        <!-- 儒修内容 -->
+        <div id="ru-xiu" class="cultivation-content">
             <div class="system-header">
                 <img src="儒修logo.png" alt="儒修" class="system-logo">
                 <div class="system-title">儒修</div>
             </div>
-            <div class="system-content">
-                <div class="system-section">
-                    <div class="section-title">核心特色</div>
-                    <p>法术系新方向，身怀浩然正气，以文载道，以笔墨为兵器，通过文气值强化技能效果。</p>
-                </div>
-                <div class="system-section">
-                    <div class="section-title">职业特点</div>
-                    <p><strong>文气机制：</strong>积攒文气值强化技能，满值可释放"言出法随"大招。</p>
-                    <p><strong>文化底蕴：</strong>引圣贤名句作战，将琴棋书画融入修行。</p>
-                    <p><strong>专属法宝：</strong>拥有文房四宝类专属法宝【笔】和【砚】。</p>
-                    <p><strong>流派分化：</strong>圣语流派快速回复能量，君子四艺流派施展强力额外效果。</p>
-                </div>
+            <div class="system-section">
+                <div class="section-title">核心特色</div>
+                <p>法术系新方向，身怀浩然正气，以文载道，以笔墨为兵器，通过文气值强化技能效果。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">职业特点</div>
+                <p><strong>文气机制：</strong>积攒文气值强化技能，满值可释放"言出法随"大招。</p>
+                <p><strong>文化底蕴：</strong>引圣贤名句作战，将琴棋书画融入修行。</p>
+                <p><strong>专属法宝：</strong>拥有文房四宝类专属法宝【笔】和【砚】。</p>
+                <p><strong>流派分化：</strong>圣语流派快速回复能量，君子四艺流派施展强力额外效果。</p>
+            </div>
+            <div class="system-section">
+                <div class="section-title">新手推荐</div>
+                <p><strong>神通搭配：</strong>推荐"圣言术"+"四艺诀"组合，平衡发展</p>
+                <p><strong>法宝选择：</strong>优先选择增加文气恢复速度的法宝</p>
+                <p><strong>修炼重点：</strong>优先提升文气上限和恢复速度</p>
             </div>
         </div>
         
         <a href="index.html" class="back-btn">返回主论坛</a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typeBtns = document.querySelectorAll('.type-btn');
+            const contents = document.querySelectorAll('.cultivation-content');
+            const defaultContent = document.getElementById('default-content');
+            
+            typeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮和内容的active类
+                    typeBtns.forEach(b => b.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类到当前按钮
+                    this.classList.add('active');
+                    
+                    // 显示对应内容
+                    const target = this.getAttribute('data-target');
+                    document.getElementById(target).classList.add('active');
+                    
+                    // 隐藏默认提示
+                    defaultContent.style.display = 'none';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
