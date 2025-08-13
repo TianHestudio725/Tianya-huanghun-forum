@@ -225,6 +225,15 @@
             }
         }
         
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            20%, 100% {
+                left: 150%;
+            }
+        }
+        
         @media (max-width: 768px) {
             .scroll-container {
                 width: 95%;
@@ -290,9 +299,13 @@
             洞天福地尚在开辟中，请各位道友稍安勿躁...
         </div>
 
-        <div style="text-align: center; margin-top: 2rem; display: flex; justify-content: center; gap: 1rem;">
+        <div style="text-align: center; margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
             <a href="guide.html" class="discord-btn" style="background: var(--primary-color);">
                 <i class="fas fa-scroll"></i> 天涯黃昏教學系統
+            </a>
+            <a href="history.html" class="discord-btn" style="background: linear-gradient(135deg, #6e45e2, #88d3ce); position: relative; overflow: hidden;">
+                <i class="fas fa-landmark"></i> 仙門歷史
+                <span style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(transparent, rgba(255,255,255,0.3), transparent); transform: rotate(30deg); animation: shine 3s infinite;"></span>
             </a>
             <a href="discord.html" class="discord-btn">
                 <i class="fab fa-discord"></i> 天涯黄昏-Discord
