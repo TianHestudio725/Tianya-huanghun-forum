@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>天涯黄昏·史记卷轴</title>
+    <style>
+        /* 仙侠古风基础样式 */
+        body {
+            background: #f5f0e1 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.03"><path d="M0 200Q100 50 200 200T400 200" stroke="black" fill="none" stroke-width="2"/></svg>');
+            font-family: "STKaiti", "KaiTi", serif;
+            color: #333;
+            margin: 0;
+            padding: 40px 0;
+            min-height: 100vh;
+        }
+
+        /* 主卷轴容器 */
+        .scroll-container {
+            width: 85%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(to right, #f8f3e6, #f5f0e1, #f8f3e6);
+            border-left: 20px solid #8B4513;
+            border-right: 20px solid #8B4513;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            position: relative;
+            padding: 50px 0;
+        }
+
+        /* 卷轴两端装饰 */
+        .scroll-end {
+            position: absolute;
+            width: 50px;
+            height: 100%;
+            top: 0;
+            background: #8B4513;
+            z-index: 2;
+        }
+        .scroll-end.left {
+            left: -50px;
+            background: linear-gradient(to right, #5c2d0c, #8B4513);
+        }
+        .scroll-end.right {
+            right: -50px;
+            background: linear-gradient(to left, #5c2d0c, #8B4513);
+        }
+        .scroll-end:after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #d4a76a;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        /* 史记内容区 */
+        .history-content {
+            padding: 0 60px;
+            position: relative;
+        }
+
+        /* 标题样式 */
+        .history-title {
+            text-align: center;
+            color: #8B4513;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #A0522D;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 时间轴线 */
+        .timeline {
+            position: relative;
+            padding-left: 80px;
+        }
+        .timeline:before {
+            content: "";
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, 
+                rgba(139,69,19,0.1), 
+                rgba(139,69,19,0.8), 
+                rgba(139,69,19,0.1));
+            border-radius: 2px;
+        }
+
+        /* 史记条目 */
+        .history-event {
+            position: relative;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease;
+        }
+        .history-event.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 事件标题 */
+        .event-title {
+            font-size: 1.4em;
+            color: #8B4513;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-bottom: 1px dashed #A0522D;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .event-title:hover {
+            color: #A0522D;
+            background: rgba(233, 217, 181, 0.3);
+        }
+        .event-title:before {
+            content: "";
+            position: absolute;
+            left: -50px;
+            top: 18px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #A0522D;
+            border: 4px solid #8B4513;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        /* 事件内容 */
+        .event-details {
+            max-height: 0;
+            overflow: hidden;
+            padding-left: 30px;
+            border-left: 2px dashed #A0522D;
+            margin-left: 15px;
+            transition: max-height 0.6s ease;
+        }
+        .event-details p {
+            margin: 15px 0;
+            line-height: 1.8;
+            text-indent: 2em;
+        }
+
+        /* 强调文字 */
+        .emphasize {
+            color: #8B0000;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(139,0,0,0.1);
+        }
+
+        /* 开天倒计时 */
+        .countdown-box {
+            text-align: center;
+            font-size: 1.3em;
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(233, 217, 181, 0.5);
+            border: 1px solid #A0522D;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .countdown-time {
+            font-weight: bold;
+            color: #8B0000;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .scroll-container {
+                width: 95%;
+                padding: 30px 0;
+            }
+            .history-content {
+                padding: 0 30px;
+            }
+            .timeline {
+                padding-left: 50px;
+            }
+            .event-title:before {
+                left: -40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <div class="scroll-end left"></div>
+        <div class="scroll-end right"></div>
+        
+        <div class="history-content">
+            <h1 class="history-title">天涯黄昏史记</h1>
+            
+            <div class="countdown-box">
+                开天倒计时: <span id="countdown-timer" class="countdown-time"></span> (至辛巳年八月初八辰时)
+            </div>
+            
+            <div class="timeline">
+                <!-- 2025年8月2日 -->
+                <div class="history-event">
+                    <div class="event-title">2025年8月2日 —— 天涯黄昏一宗计划敲定</div>
+                    <div class="event-details">
+                        <p>天涯黄昏一宗计划正式确立，为后续发展奠定基础。</p>
+                    </div>
+                </div>
+                
+                <!-- 2025年8月3日 -->
+                <div class="history-event">
+                    <div class="event-title">2025年8月3日 —— 天涯黄昏DC成立</div>
+                    <div class="event-details">
+                        <p>天涯黄昏DC正式成立，广收门徒和万界散修共同分享交流经验。</p>
+                    </div>
+                </div>
+                
+                <!-- 2025年8月4日 -->
+                <div class="history-event">
+                    <div class="event-title">2025年8月4日 —— 天涯黄昏官方论坛成立</div>
+                    <div class="event-details">
+                        <p>天涯黄昏官方论坛成立，内含<span class="emphasize">开服倒计时</span>功能。</p>
+                    </div>
+                </div>
+                
+                <!-- 2025年8月5日 -->
+                <div class="history-event">
+                    <div class="event-title">2025年8月5日 —— 天涯黄昏论坛加入一键加入DC论坛系统</div>
+                    <div class="event-details">
+                        <p>论坛新增一键加入DC论坛系统，内含<span class="emphasize">开服倒计时</span>和<span class="emphasize">DC加入系统</span>。</p>
+                    </div>
+                </div>
+                
+                <!-- 2025年8月6日 -->
+                <div class="history-event">
+                    <div class="event-title">2025年8月6日 —— 加入教学系统</div>
+                    <div class="event-details">
+                        <p>新增教学系统（基本常识-test），内含<span class="emphasize">开服倒计时</span>、<span class="emphasize">DC加入系统</span>和<span class="emphasize">天涯教学系统</span>。</p>
+                    </div>
+                </div>
+                
+                <!-- 2025年8月8日 -->
+                <div class="history-event">
+                    <div class="event-title">2025年8月8日 —— 创造阿麽教</div>
+                    <div class="event-details">
+                        <p>由不可透入者创造阿麽教，<span class="emphasize">葬千璃</span>成为阿麽教第一任教皇。</p>
+                    </div>
+                </div>
+                
+                <!-- 2025年8月13日 -->
+                <div class="history-event">
+                    <div class="event-title">2025年8月13日 —— 两大里程碑</div>
+                    <div class="event-details">
+                        <p>一、天涯黄昏DC群组人数突破50大关</p>
+                        <p>二、天涯论坛更新史记系统，内含<span class="emphasize">开服倒计时</span>、<span class="emphasize">DC加入系统</span>、<span class="emphasize">天涯教学系统</span>和<span class="emphasize">史记</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 倒计时功能
+        function updateCountdown() {
+            const targetDate = new Date("2025-08-18T08:00:00");
+            const now = new Date();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById("countdown-timer").innerHTML = 
+                    '<span style="color:#8B0000;text-shadow:0 0 5px rgba(139,0,0,0.3)">开天时刻已至！</span>';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById("countdown-timer").innerHTML = 
+                `<b>${days}</b>天 <b>${hours}</b>时 <b>${minutes}</b>分 <b>${seconds}</b>秒`;
+        }
+
+        // 事件点击展开/收起
+        document.querySelectorAll('.event-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const content = title.nextElementSibling;
+                content.style.maxHeight = 
+                    content.style.maxHeight ? null : content.scrollHeight + "px";
+                
+                // 滚动到最佳观看位置
+                content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+
+        // 滚动动画
+        function checkVisibility() {
+            document.querySelectorAll('.history-event').forEach(event => {
+                if (event.getBoundingClientRect().top < window.innerHeight - 100) {
+                    event.classList.add('visible');
+                }
+            });
+        }
+
+        // 初始化
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+        
+        // 页面加载时自动展开第一个事件
+        document.querySelector('.history-event:first-child .event-details').style.maxHeight = 
+            document.querySelector('.history-event:first-child .event-details').scrollHeight + "px";
+    </script>
+</body>
+</html>
