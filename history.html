@@ -2,260 +2,278 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>天涯黄昏·史记卷轴</title>
+    <title>天涯黄昏·史记全卷</title>
     <style>
-        /* 仙侠古风基础样式 */
+        /* 仙侠卷轴核心样式 */
         body {
-            background: #f5f0e1 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.03"><path d="M0 200Q100 50 200 200T400 200" stroke="black" fill="none" stroke-width="2"/></svg>');
-            font-family: "STKaiti", "KaiTi", serif;
+            background: #e8dfcb url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.08"><path d="M0 50Q15 10 50 50T100 50" stroke="%238B4513" fill="none"/></svg>');
+            font-family: "STKaiti", "KaiTi", "SimSun", serif;
             color: #333;
             margin: 0;
-            padding: 40px 0;
+            padding: 30px 0;
             min-height: 100vh;
         }
 
         /* 主卷轴容器 */
-        .scroll-container {
-            width: 85%;
-            max-width: 900px;
+        .scroll-master {
+            width: 88%;
+            max-width: 850px;
             margin: 0 auto;
-            background: linear-gradient(to right, #f8f3e6, #f5f0e1, #f8f3e6);
-            border-left: 20px solid #8B4513;
-            border-right: 20px solid #8B4513;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            background: linear-gradient(to right, #f5f0e1, #f8f4e8, #f5f0e1);
+            border-left: 25px solid #5c2d0c;
+            border-right: 25px solid #5c2d0c;
+            box-shadow: 0 5px 40px rgba(0,0,0,0.4);
             position: relative;
-            padding: 50px 0;
+            padding: 15px 0;
         }
 
-        /* 卷轴两端装饰 */
+        /* 卷轴两端雕花 */
         .scroll-end {
             position: absolute;
-            width: 50px;
-            height: 100%;
-            top: 0;
-            background: #8B4513;
+            width: 60px;
+            height: calc(100% + 30px);
+            top: -15px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="100%"><pattern id="wood" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M0 0L10 10M10 0L0 10" stroke="%23482a10" opacity="0.3"/></pattern><rect width="60" height="100%" fill="%235c2d0c"/><rect width="60" height="100%" fill="url(%23wood)"/><circle cx="30" cy="50%" r="15" fill="%23d4a76a" stroke="%23482a10" stroke-width="2"/></svg>');
             z-index: 2;
         }
         .scroll-end.left {
-            left: -50px;
-            background: linear-gradient(to right, #5c2d0c, #8B4513);
+            left: -60px;
         }
         .scroll-end.right {
-            right: -50px;
-            background: linear-gradient(to left, #5c2d0c, #8B4513);
-        }
-        .scroll-end:after {
-            content: "";
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: #d4a76a;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            right: -60px;
+            transform: scaleX(-1);
         }
 
         /* 史记内容区 */
-        .history-content {
-            padding: 0 60px;
+        .history-core {
+            padding: 0 70px;
             position: relative;
         }
 
-        /* 标题样式 */
-        .history-title {
+        /* 卷轴标题 */
+        .scroll-title {
             text-align: center;
             color: #8B4513;
-            font-size: 2.2em;
-            margin-bottom: 30px;
+            font-size: 2.4em;
+            margin: 25px 0 35px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #A0522D;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 3px double #A0522D;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+            letter-spacing: 8px;
+        }
+
+        /* 倒计时显示 */
+        .celestial-countdown {
+            text-align: center;
+            font-size: 1.4em;
+            margin: 25px auto;
+            padding: 12px;
+            width: 80%;
+            background: rgba(233, 217, 181, 0.6);
+            border: 1px solid #A0522D;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .countdown-digits {
+            font-weight: bold;
+            color: #8B0000;
+            letter-spacing: 2px;
         }
 
         /* 时间轴线 */
-        .timeline {
+        .timeline-path {
             position: relative;
-            padding-left: 80px;
+            padding-left: 85px;
         }
-        .timeline:before {
+        .timeline-path:before {
             content: "";
             position: absolute;
-            left: 40px;
+            left: 42px;
             top: 0;
             bottom: 0;
             width: 4px;
             background: linear-gradient(to bottom, 
                 rgba(139,69,19,0.1), 
-                rgba(139,69,19,0.8), 
+                rgba(139,69,19,0.9), 
                 rgba(139,69,19,0.1));
             border-radius: 2px;
         }
 
         /* 史记条目 */
-        .history-event {
+        .chronicle-entry {
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
             opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.8s ease;
+            transform: translateY(25px);
+            transition: all 0.9s ease-out;
         }
-        .history-event.visible {
+        .chronicle-entry.visible {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
         }
 
-        /* 事件标题 */
-        .event-title {
-            font-size: 1.4em;
-            color: #8B4513;
+        /* 条目标题 */
+        .entry-header {
+            font-size: 1.5em;
+            color: #5c2d0c;
             cursor: pointer;
-            padding: 10px 15px;
-            border-bottom: 1px dashed #A0522D;
+            padding: 12px 20px;
+            border-bottom: 1px solid #A0522D;
             position: relative;
             transition: all 0.3s ease;
+            background: rgba(233, 217, 181, 0.2);
+            border-radius: 3px 3px 0 0;
         }
-        .event-title:hover {
-            color: #A0522D;
-            background: rgba(233, 217, 181, 0.3);
+        .entry-header:hover {
+            background: rgba(233, 217, 181, 0.4);
+            text-shadow: 0 0 3px rgba(139, 69, 19, 0.2);
         }
-        .event-title:before {
+        .entry-header:before {
             content: "";
             position: absolute;
-            left: -50px;
-            top: 18px;
-            width: 20px;
-            height: 20px;
+            left: -53px;
+            top: 22px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             background: #A0522D;
-            border: 4px solid #8B4513;
-            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            border: 4px solid #5c2d0c;
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+            z-index: 1;
         }
 
-        /* 事件内容 */
-        .event-details {
+        /* 条目内容 */
+        .entry-scroll {
             max-height: 0;
             overflow: hidden;
-            padding-left: 30px;
-            border-left: 2px dashed #A0522D;
-            margin-left: 15px;
-            transition: max-height 0.6s ease;
+            padding-left: 35px;
+            border-left: 2px dotted #A0522D;
+            margin-left: 18px;
+            transition: max-height 0.7s ease;
         }
-        .event-details p {
-            margin: 15px 0;
-            line-height: 1.8;
+        .entry-scroll p {
+            margin: 18px 0;
+            line-height: 1.9;
             text-indent: 2em;
+            padding-right: 10px;
         }
 
-        /* 强调文字 */
-        .emphasize {
+        /* 重点标注 */
+        .imperial-seal {
             color: #8B0000;
             font-weight: bold;
-            text-shadow: 0 0 3px rgba(139,0,0,0.1);
+            text-shadow: 0 0 3px rgba(139,0,0,0.2);
+            position: relative;
+        }
+        .imperial-seal:after {
+            content: "〘";
+            margin-left: 2px;
+        }
+        .imperial-seal:before {
+            content: "〙";
+            margin-right: 2px;
         }
 
-        /* 开天倒计时 */
-        .countdown-box {
-            text-align: center;
-            font-size: 1.3em;
-            margin: 30px 0;
-            padding: 15px;
-            background: rgba(233, 217, 181, 0.5);
-            border: 1px solid #A0522D;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .countdown-time {
-            font-weight: bold;
-            color: #8B0000;
-        }
-
-        /* 响应式设计 */
+        /* 响应式调整 */
         @media (max-width: 768px) {
-            .scroll-container {
+            .scroll-master {
                 width: 95%;
-                padding: 30px 0;
+                padding: 10px 0;
             }
-            .history-content {
+            .history-core {
                 padding: 0 30px;
             }
-            .timeline {
-                padding-left: 50px;
+            .scroll-end {
+                width: 40px;
+                height: calc(100% + 20px);
+                top: -10px;
             }
-            .event-title:before {
+            .scroll-end.left {
                 left: -40px;
+            }
+            .scroll-end.right {
+                right: -40px;
+            }
+            .timeline-path {
+                padding-left: 60px;
+            }
+            .entry-header:before {
+                left: -43px;
+            }
+            .celestial-countdown {
+                width: 95%;
+                font-size: 1.2em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="scroll-container">
+    <div class="scroll-master">
         <div class="scroll-end left"></div>
         <div class="scroll-end right"></div>
         
-        <div class="history-content">
-            <h1 class="history-title">天涯黄昏史记</h1>
+        <div class="history-core">
+            <h1 class="scroll-title">天 涯 黄 昏 史 记</h1>
             
-            <div class="countdown-box">
-                开天倒计时: <span id="countdown-timer" class="countdown-time"></span> (至辛巳年八月初八辰时)
+            <div class="celestial-countdown">
+                开天倒计时: <span id="countdown-timer" class="countdown-digits"></span> (至乙巳年八月初八辰时)
             </div>
             
-            <div class="timeline">
-                <!-- 2025年8月2日 -->
-                <div class="history-event">
-                    <div class="event-title">2025年8月2日 —— 天涯黄昏一宗计划敲定</div>
-                    <div class="event-details">
+            <div class="timeline-path">
+                <!-- 甲辰年七月初九 -->
+                <div class="chronicle-entry">
+                    <div class="entry-header">2025年8月2日 —— 天涯黄昏一宗计划敲定</div>
+                    <div class="entry-scroll">
                         <p>天涯黄昏一宗计划正式确立，为后续发展奠定基础。</p>
                     </div>
                 </div>
                 
-                <!-- 2025年8月3日 -->
-                <div class="history-event">
-                    <div class="event-title">2025年8月3日 —— 天涯黄昏DC成立</div>
-                    <div class="event-details">
+                <!-- 甲辰年七月初十 -->
+                <div class="chronicle-entry">
+                    <div class="entry-header">2025年8月3日 —— 天涯黄昏DC成立</div>
+                    <div class="entry-scroll">
                         <p>天涯黄昏DC正式成立，广收门徒和万界散修共同分享交流经验。</p>
                     </div>
                 </div>
                 
-                <!-- 2025年8月4日 -->
-                <div class="history-event">
-                    <div class="event-title">2025年8月4日 —— 天涯黄昏官方论坛成立</div>
-                    <div class="event-details">
-                        <p>天涯黄昏官方论坛成立，内含<span class="emphasize">开服倒计时</span>功能。</p>
+                <!-- 甲辰年七月十一 -->
+                <div class="chronicle-entry">
+                    <div class="entry-header">2025年8月4日 —— 天涯黄昏官方论坛成立</div>
+                    <div class="entry-scroll">
+                        <p>天涯黄昏官方论坛成立，内含<span class="imperial-seal">开服倒计时</span>功能。</p>
                     </div>
                 </div>
                 
-                <!-- 2025年8月5日 -->
-                <div class="history-event">
-                    <div class="event-title">2025年8月5日 —— 天涯黄昏论坛加入一键加入DC论坛系统</div>
-                    <div class="event-details">
-                        <p>论坛新增一键加入DC论坛系统，内含<span class="emphasize">开服倒计时</span>和<span class="emphasize">DC加入系统</span>。</p>
+                <!-- 甲辰年七月十二 -->
+                <div class="chronicle-entry">
+                    <div class="entry-header">2025年8月5日 —— 天涯黄昏论坛加入一键加入DC论坛系统</div>
+                    <div class="entry-scroll">
+                        <p>论坛新增一键加入DC论坛系统，内含<span class="imperial-seal">开服倒计时</span>和<span class="imperial-seal">DC加入系统</span>。</p>
                     </div>
                 </div>
                 
-                <!-- 2025年8月6日 -->
-                <div class="history-event">
-                    <div class="event-title">2025年8月6日 —— 加入教学系统</div>
-                    <div class="event-details">
-                        <p>新增教学系统（基本常识-test），内含<span class="emphasize">开服倒计时</span>、<span class="emphasize">DC加入系统</span>和<span class="emphasize">天涯教学系统</span>。</p>
+                <!-- 甲辰年七月十三 -->
+                <div class="chronicle-entry">
+                    <div class="entry-header">2025年8月6日 —— 加入教学系统</div>
+                    <div class="entry-scroll">
+                        <p>新增教学系统（基本常识-test），内含<span class="imperial-seal">开服倒计时</span>、<span class="imperial-seal">DC加入系统</span>和<span class="imperial-seal">天涯教学系统</span>。</p>
                     </div>
                 </div>
                 
-                <!-- 2025年8月8日 -->
-                <div class="history-event">
-                    <div class="event-title">2025年8月8日 —— 创造阿麽教</div>
-                    <div class="event-details">
-                        <p>由不可透入者创造阿麽教，<span class="emphasize">葬千璃</span>成为阿麽教第一任教皇。</p>
+                <!-- 甲辰年七月十五 -->
+                <div class="chronicle-entry">
+                    <div class="entry-header">2025年8月8日 —— 创造阿麽教</div>
+                    <div class="entry-scroll">
+                        <p>由不可透入者创造阿麽教，<span class="imperial-seal">葬千璃</span>成为阿麽教第一任教皇。</p>
                     </div>
                 </div>
                 
-                <!-- 2025年8月13日 -->
-                <div class="history-event">
-                    <div class="event-title">2025年8月13日 —— 两大里程碑</div>
-                    <div class="event-details">
+                <!-- 甲辰年七月二十 -->
+                <div class="chronicle-entry">
+                    <div class="entry-header">2025年8月13日 —— 两大里程碑</div>
+                    <div class="entry-scroll">
                         <p>一、天涯黄昏DC群组人数突破50大关</p>
-                        <p>二、天涯论坛更新史记系统，内含<span class="emphasize">开服倒计时</span>、<span class="emphasize">DC加入系统</span>、<span class="emphasize">天涯教学系统</span>和<span class="emphasize">史记</span></p>
+                        <p>二、天涯论坛更新史记系统，内含<span class="imperial-seal">开服倒计时</span>、<span class="imperial-seal">DC加入系统</span>、<span class="imperial-seal">天涯教学系统</span>和<span class="imperial-seal">史记</span></p>
                     </div>
                 </div>
             </div>
@@ -263,57 +281,62 @@
     </div>
 
     <script>
-        // 倒计时功能
-        function updateCountdown() {
-            const targetDate = new Date("2025-08-18T08:00:00");
+        // 开天倒计时
+        function celestialCountdown() {
+            const target = new Date("2025-08-18T08:00:00");
             const now = new Date();
-            const diff = targetDate - now;
+            const diff = target - now;
             
             if (diff <= 0) {
                 document.getElementById("countdown-timer").innerHTML = 
-                    '<span style="color:#8B0000;text-shadow:0 0 5px rgba(139,0,0,0.3)">开天时刻已至！</span>';
+                    '<span style="color:#8B0000;text-shadow:0 0 5px rgba(139,0,0,0.4)">开天时刻已至！</span>';
                 return;
             }
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const days = Math.floor(diff / (86400000));
+            const hours = Math.floor((diff % 86400000) / 3600000);
+            const minutes = Math.floor((diff % 3600000) / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
             
             document.getElementById("countdown-timer").innerHTML = 
                 `<b>${days}</b>天 <b>${hours}</b>时 <b>${minutes}</b>分 <b>${seconds}</b>秒`;
         }
 
-        // 事件点击展开/收起
-        document.querySelectorAll('.event-title').forEach(title => {
-            title.addEventListener('click', () => {
-                const content = title.nextElementSibling;
-                content.style.maxHeight = 
-                    content.style.maxHeight ? null : content.scrollHeight + "px";
+        // 卷轴展开交互
+        document.querySelectorAll('.entry-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const scroll = this.nextElementSibling;
+                scroll.style.maxHeight = scroll.style.maxHeight ? null : scroll.scrollHeight + "px";
                 
-                // 滚动到最佳观看位置
-                content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                // 自动滚动到最佳查看位置
+                setTimeout(() => {
+                    scroll.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
             });
         });
 
-        // 滚动动画
-        function checkVisibility() {
-            document.querySelectorAll('.history-event').forEach(event => {
-                if (event.getBoundingClientRect().top < window.innerHeight - 100) {
-                    event.classList.add('visible');
+        // 卷轴浮现动画
+        function scrollReveal() {
+            const entries = document.querySelectorAll('.chronicle-entry');
+            entries.forEach((entry, index) => {
+                if (entry.getBoundingClientRect().top < window.innerHeight - 100) {
+                    setTimeout(() => {
+                        entry.classList.add('visible');
+                    }, 150 * index);
                 }
             });
         }
 
         // 初始化
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-        window.addEventListener('scroll', checkVisibility);
-        window.addEventListener('load', checkVisibility);
-        
-        // 页面加载时自动展开第一个事件
-        document.querySelector('.history-event:first-child .event-details').style.maxHeight = 
-            document.querySelector('.history-event:first-child .event-details').scrollHeight + "px";
+        setInterval(celestialCountdown, 1000);
+        celestialCountdown();
+        window.addEventListener('scroll', scrollReveal);
+        window.addEventListener('load', () => {
+            scrollReveal();
+            // 自动展开第一个条目
+            document.querySelector('.chronicle-entry:first-child .entry-scroll').style.maxHeight = 
+                document.querySelector('.chronicle-entry:first-child .entry-scroll').scrollHeight + "px";
+        });
     </script>
 </body>
 </html>
